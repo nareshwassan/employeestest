@@ -1,0 +1,37 @@
+﻿@page "/list"
+@using employeestest.Data;
+@inject ApplicationDbContext _context
+
+<h1>Empployees list</h1>
+<table>
+    <thead>
+        <tr>
+            <th>employee name</th>
+        </tr>
+        @if(employees is not null && employees.Count>0)
+        {
+            @foreach(var item in employees)
+            {
+                <tr>
+                    <td>@item.employeeName</td>
+                </tr>
+            }
+            
+        }
+    </thead>
+</table>
+
+<h3>List</h3>
+
+@code {
+    public List<Models.Employees> employees = new List<Models.Employees>();
+    protected override void OnInitialized()
+    {
+        employees = _context.Employees.ToList();
+        if(employees is null)
+        {
+            employees = new List<Models.Employees>();
+        }
+    }
+
+}
